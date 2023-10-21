@@ -27,5 +27,6 @@ public class Book {
     private String coverImage;
 
     public Book() {
+
     }
 }
