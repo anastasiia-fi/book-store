@@ -1,12 +1,19 @@
 package mapper;
 
-import config.MapperConfig;
 import dto.BookDto;
 import dto.CreateBookRequestDto;
 import model.Book;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValueCheckStrategy;
 
-@Mapper(config = MapperConfig.class)
+@Mapper
+@org.mapstruct.MapperConfig(
+        componentModel = "spring",
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+        implementationPackage = "<PACKAGE_NAME>.impl"
+)
 public interface BookMapper {
     BookDto toDto(Book book);
 

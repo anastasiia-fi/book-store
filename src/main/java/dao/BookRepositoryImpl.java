@@ -1,8 +1,8 @@
 package dao;
 
+import exception.DataProcessingException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.EntityTransaction;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new EntityNotFoundException("Can't save book to DB", e);
+            throw new DataProcessingException("Can't save book to DB");
         }
         return book;
     }
@@ -38,15 +38,16 @@ public class BookRepositoryImpl implements BookRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery("from Book", Book.class).getResultList();
         } catch (Exception e) {
-            throw new EntityNotFoundException("Can't get books from DB", e);
+            throw new DataProcessingException("Can't get books from DB");
         }
     }
 
     @Override
     public Optional<Book> findById(Long id) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            Book book = entityManager.find(Book.class, id);
-            return Optional.ofNullable(book);
+            return Optional.ofNullable(entityManager.find(Book.class, id));
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't find book with id " + id);
         }
     }
 }
