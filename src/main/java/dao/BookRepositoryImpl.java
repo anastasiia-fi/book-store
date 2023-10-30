@@ -1,21 +1,20 @@
 package dao;
 
 import exception.DataProcessingException;
+import exception.EntityNotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import model.Book;
 import org.springframework.stereotype.Repository;
 
+@RequiredArgsConstructor
 @Repository
 public class BookRepositoryImpl implements BookRepository {
     private final EntityManagerFactory entityManagerFactory;
-
-    public BookRepositoryImpl(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
 
     @Override
     public Book save(Book book) {
@@ -28,7 +27,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't save book to DB");
+            throw new DataProcessingException("Can't save book to DB", e);
         }
         return book;
     }
@@ -38,7 +37,7 @@ public class BookRepositoryImpl implements BookRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery("from Book", Book.class).getResultList();
         } catch (Exception e) {
-            throw new DataProcessingException("Can't get books from DB");
+            throw new EntityNotFoundException("Can't get books from DB", e);
         }
     }
 
@@ -47,7 +46,8 @@ public class BookRepositoryImpl implements BookRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return Optional.ofNullable(entityManager.find(Book.class, id));
         } catch (Exception e) {
-            throw new DataProcessingException("Can't find book with id " + id);
+            throw new jakarta.persistence.EntityNotFoundException(
+                    "Can't find book with id " + id, e);
         }
     }
 }

@@ -5,24 +5,21 @@ import dto.BookDto;
 import dto.CreateBookRequestDto;
 import exception.EntityNotFoundException;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import mapper.BookMapper;
 import model.Book;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
-    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
-        this.bookRepository = bookRepository;
-        this.bookMapper = bookMapper;
-    }
-
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
-        Book book = bookMapper.toModel(requestDto);
+        Book book = bookMapper.toBook(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
     }
 
