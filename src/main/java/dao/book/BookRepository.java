@@ -1,4 +1,4 @@
-package dao;
+package dao.book;
 
 import model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
