@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: Long
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -31,7 +31,7 @@ databaseChangeLog:
                     unique: true
               - column:
                   name: price
-                  type: BigDecimal
+                  type: decimal(10,2)
                   constraints:
                     nullable: false
               - column:

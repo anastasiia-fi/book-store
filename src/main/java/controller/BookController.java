@@ -21,7 +21,7 @@ import service.BookService;
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping("/api/books")
+    @GetMapping
     public List<BookDto> getAll() {
         return bookService.findAll();
     }
@@ -31,7 +31,7 @@ public class BookController {
         return bookService.findById(id);
     }
 
-    @PostMapping("/api/books")
+    @PostMapping
     public BookDto createBook(@RequestBody CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
