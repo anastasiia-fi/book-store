@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "books")
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,8 +24,4 @@ public class Book {
     private BigDecimal price;
     private String description;
     private String coverImage;
-
-    public Book() {
-
-    }
 }
