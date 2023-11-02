@@ -1,14 +1,13 @@
-package mapper;
+package com.example.bookstore.mapper;
 
-import dto.BookDto;
-import dto.CreateBookRequestDto;
-import model.Book;
+import com.example.bookstore.dto.BookDto;
+import com.example.bookstore.dto.CreateBookRequestDto;
+import com.example.bookstore.model.Book;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 
-@Mapper
-@org.mapstruct.MapperConfig(
+@Mapper(
         componentModel = "spring",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
