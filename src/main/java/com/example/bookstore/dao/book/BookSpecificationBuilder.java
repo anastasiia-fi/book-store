@@ -2,8 +2,8 @@ package com.example.bookstore.dao.book;
 
 import com.example.bookstore.dao.SpecificationBuilder;
 import com.example.bookstore.dao.SpecificationProviderManager;
+import com.example.bookstore.dto.BookSearchParametersDto;
 import com.example.bookstore.model.Book;
-import dto.BookSearchParametersDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
