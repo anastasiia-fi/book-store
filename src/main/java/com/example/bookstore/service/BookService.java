@@ -1,6 +1,7 @@
 package com.example.bookstore.service;
 
 import com.example.bookstore.dto.BookDto;
+import com.example.bookstore.dto.BookSearchParametersDto;
 import com.example.bookstore.dto.CreateBookRequestDto;
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface BookService {
 
     BookDto updateById(Long id, CreateBookRequestDto requestDto);
 
-    List<BookDto> search(dto.BookSearchParametersDto searchParameters);
+    List<BookDto> search(BookSearchParametersDto searchParameters);
 }
