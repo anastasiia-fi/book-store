@@ -1,7 +1,6 @@
 package com.example.bookstore.mapper;
 
 import com.example.bookstore.dto.user.CreateUserRequestDto;
-import com.example.bookstore.dto.user.UserDto;
 import com.example.bookstore.dto.user.UserResponseDto;
 import com.example.bookstore.model.User;
 import org.mapstruct.InjectionStrategy;

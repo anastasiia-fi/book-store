@@ -6,6 +6,5 @@ public record UserDto(
         String password,
         String firstName,
         String lastName,
-        String shippingAddress
-        ) {
+        String shippingAddress) {
 }
