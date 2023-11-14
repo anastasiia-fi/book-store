@@ -1,4 +1,4 @@
-package com.example.bookstore.dao;
+package com.example.bookstore.dao.repository;
 
 import com.example.bookstore.model.User;
 import java.util.Optional;

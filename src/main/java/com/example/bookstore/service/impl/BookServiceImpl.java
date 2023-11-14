@@ -1,6 +1,6 @@
 package com.example.bookstore.service.impl;
 
-import com.example.bookstore.dao.BookRepository;
+import com.example.bookstore.dao.repository.BookRepository;
 import com.example.bookstore.dao.book.BookSpecificationBuilder;
 import com.example.bookstore.dto.book.BookDto;
 import com.example.bookstore.dto.book.BookSearchParametersDto;
