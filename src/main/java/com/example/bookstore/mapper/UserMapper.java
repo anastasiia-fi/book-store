@@ -1,8 +1,8 @@
 package com.example.bookstore.mapper;
 
-import com.example.bookstore.dto.book.BookDto;
-import com.example.bookstore.dto.book.CreateBookRequestDto;
-import com.example.bookstore.model.Book;
+import com.example.bookstore.dto.user.UserRegistrationRequestDto;
+import com.example.bookstore.dto.user.UserResponseDto;
+import com.example.bookstore.model.User;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
@@ -13,8 +13,8 @@ import org.mapstruct.NullValueCheckStrategy;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         implementationPackage = "<PACKAGE_NAME>.impl"
 )
-public interface BookMapper {
-    BookDto toDto(Book book);
+public interface UserMapper {
+    UserResponseDto toUserResponseDto(User user);
 
-    Book toBook(CreateBookRequestDto requestDto);
+    User toUser(UserRegistrationRequestDto requestDto);
 }
