@@ -3,21 +3,26 @@ package com.example.bookstore.dto.user;
 import com.example.bookstore.validator.FieldMatch;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 
-@Data
-public class UserRegistrationRequestDto {
+@FieldMatch(message = "Password don`t match",
+                field = {"password", "verifyPassword"})
+public record UserRegistrationRequestDto(
+        @NotBlank
+        @Size(min = 4, max = 50)
+        String email,
 
-    @NotBlank
-    @Size(min = 4, max = 50)
-    private String email;
+        @NotBlank
+        @Size(min = 6, max = 100)
+        String password,
 
-    @NotBlank
-    @Size(min = 6, max = 100)
-    private String password;
+        @NotBlank
+        @Size(min = 6, max = 100)
+        String repeatPassword,
 
-    @FieldMatch
-    @NotBlank
-    @Size(min = 6, max = 100)
-    private String repeatPassword;
+        @NotBlank
+        String firstName,
+        @NotBlank
+        String lastName,
+        String shippingAddress
+) {
 }

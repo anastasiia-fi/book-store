@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user_role-table
+      id: create-users_roles-table
       author: anastasiia
       changes:
         - createTable:
-            tableName: user_role
+            tableName: users_roles
             columns:
               - column:
                   name: user_id
@@ -12,11 +12,9 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_user_id
                     references: users(id)
-                    primaryKey: true
               - column:
                   name: role_id
                   type: bigint
                   constraints:
                     foreignKeyName: fk_roles_id
                     references: roles(id)
-                    primaryKey: true

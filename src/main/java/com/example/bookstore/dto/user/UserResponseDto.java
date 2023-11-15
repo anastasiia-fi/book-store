@@ -1,9 +1,10 @@
 package com.example.bookstore.dto.user;
 
-import lombok.Data;
-
-@Data
-public class UserResponseDto {
-    private Long id;
-    private String email;
+public record UserResponseDto(
+        Long id,
+        String email,
+        String firstName,
+        String lastName,
+        String shippingAddress
+) {
 }
