@@ -55,7 +55,7 @@ public class BookController {
         bookService.deleteById(id);
     }
 
-    @Operation(summary = "Update a book", description = "update information about a book by id")
+    @Operation(summary = "Update a book", description = "Update information about a book by id")
     @PutMapping("/{id}")
     public BookDto updateById(@PathVariable Long id, @RequestBody CreateBookRequestDto requestDto) {
         return bookService.updateById(id, requestDto);

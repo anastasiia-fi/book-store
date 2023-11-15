@@ -1,8 +1,9 @@
 package com.example.bookstore.service.impl;
 
-import com.example.bookstore.dao.repository.BookRepository;
 import com.example.bookstore.dao.book.BookSpecificationBuilder;
+import com.example.bookstore.dao.repository.BookRepository;
 import com.example.bookstore.dto.book.BookDto;
+import com.example.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.example.bookstore.dto.book.BookSearchParametersDto;
 import com.example.bookstore.dto.book.CreateBookRequestDto;
 import com.example.bookstore.exception.EntityNotFoundException;
@@ -56,6 +57,13 @@ public class BookServiceImpl implements BookService {
             .stream()
             .map(bookMapper::toDto)
             .toList();
+    }
+
+    @Override
+    public List<BookDtoWithoutCategoryIds> findAllByCategoryId(Long categoryId) {
+        return bookRepository.findAllByCategoryId(categoryId).stream()
+                .map(bookMapper::toDtoWithoutCategories)
+                .toList();
     }
 
     @Override
