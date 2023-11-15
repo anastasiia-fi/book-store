@@ -29,10 +29,7 @@ databaseChangeLog:
               - column:
                   name: name
                   value: ROLE_ADMIN
-  - changeSet:
-      id: insert-roles
-      author: anastasiia
-      changes:
+
         - insert:
             tableName: roles
             columns:
