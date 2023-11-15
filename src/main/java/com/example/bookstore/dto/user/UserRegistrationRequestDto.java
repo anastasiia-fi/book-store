@@ -2,10 +2,10 @@ package com.example.bookstore.dto.user;
 
 import com.example.bookstore.validator.FieldMatch;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-@FieldMatch
+@FieldMatch(message = "Password don`t match",
+                field = {"password", "verifyPassword"})
 public record UserRegistrationRequestDto(
         @NotBlank
         @Size(min = 4, max = 50)
@@ -19,9 +19,9 @@ public record UserRegistrationRequestDto(
         @Size(min = 6, max = 100)
         String repeatPassword,
 
-        @NotNull
+        @NotBlank
         String firstName,
-        @NotNull
+        @NotBlank
         String lastName,
         String shippingAddress
 ) {

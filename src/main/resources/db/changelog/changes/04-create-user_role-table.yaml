@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user_role-table
+      id: create-users_roles-table
       author: anastasiia
       changes:
         - createTable:
-            tableName: user_role
+            tableName: users_roles
             columns:
               - column:
                   name: user_id
