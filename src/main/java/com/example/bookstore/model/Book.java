@@ -41,9 +41,9 @@ public class Book {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany
-    @JoinTable(name = "book_category",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "books_categories",
+            joinColumns = @JoinColumn(name = "books_id"),
+            inverseJoinColumns = @JoinColumn(name = "categories_id"))
     private Set<Category> categories = new HashSet<>();
 
     @Column(nullable = false)
