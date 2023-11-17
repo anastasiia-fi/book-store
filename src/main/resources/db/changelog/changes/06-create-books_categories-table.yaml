@@ -7,13 +7,13 @@ databaseChangeLog:
             tableName: books_categories
             columns:
               - column:
-                  name: books_id
+                  name: book_id
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_books_id
+                    foreignKeyName: fk_book_sid
                     references: books(id)
               - column:
-                  name: categories_id
+                  name: category_id
                   type: bigint
                   constraints:
                     foreignKeyName: fk_categories_id

@@ -1,6 +1,6 @@
 package com.example.bookstore.service.impl;
 
-import com.example.bookstore.dao.RoleRepository;
+import com.example.bookstore.dao.repository.RoleRepository;
 import com.example.bookstore.dao.repository.UserRepository;
 import com.example.bookstore.dto.user.UserRegistrationRequestDto;
 import com.example.bookstore.dto.user.UserResponseDto;

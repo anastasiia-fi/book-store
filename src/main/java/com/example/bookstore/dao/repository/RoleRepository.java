@@ -1,4 +1,4 @@
-package com.example.bookstore.dao;
+package com.example.bookstore.dao.repository;
 
 import com.example.bookstore.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
