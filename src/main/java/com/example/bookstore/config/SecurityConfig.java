@@ -1,8 +1,5 @@
 package com.example.bookstore.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
-
 import com.example.bookstore.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -38,21 +35,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers(
-                                        antMatcher("/auth/**"),
-                                        antMatcher("/error"),
-                                        antMatcher("/swagger-ui/**")
-                                        )
+                                .requestMatchers("/auth/**", "/error", "/swagger-ui/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
-                .httpBasic(withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS))
-                .userDetailsService(userDetailService)
                 .addFilterBefore(jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class)
+                .userDetailsService(userDetailService)
                 .build();
     }
 

@@ -69,7 +69,7 @@ public class CategoryController {
         categoryService.deleteById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get books by category id", description = "Get a list of books"
             + "of some category by category id")
     @GetMapping("/{id}/books")
