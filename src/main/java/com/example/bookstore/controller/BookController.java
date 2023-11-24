@@ -44,7 +44,7 @@ public class BookController {
         return bookService.findById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Create a new book", description = "Add a new book to DB")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping

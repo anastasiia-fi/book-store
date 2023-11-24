@@ -2,6 +2,7 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.example.bookstore.dto.category.CategoryDto;
+import com.example.bookstore.dto.category.CreateCategoryRequestDto;
 import com.example.bookstore.service.BookService;
 import com.example.bookstore.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,12 +31,13 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final BookService bookService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Create a new category", description = "Create a new book's category")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public CategoryDto createCategory(@RequestBody @Valid CategoryDto categoryDto) {
-        return categoryService.save(categoryDto);
+    public CategoryDto createCategory(
+            @RequestBody @Valid CreateCategoryRequestDto categoryRequestDto) {
+        return categoryService.save(categoryRequestDto);
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -57,8 +59,9 @@ public class CategoryController {
     @Operation(summary = "Update a category", description = "Update information"
             + "about a category by id")
     @PutMapping("/{id}")
-    public CategoryDto updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto) {
-        return categoryService.update(id, categoryDto);
+    public CategoryDto updateCategory(
+            @PathVariable Long id, @RequestBody CreateCategoryRequestDto categoryRequestDto) {
+        return categoryService.update(id, categoryRequestDto);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

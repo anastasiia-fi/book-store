@@ -2,6 +2,7 @@ package com.example.bookstore.service.impl;
 
 import com.example.bookstore.dao.book.BookSpecificationBuilder;
 import com.example.bookstore.dao.repository.BookRepository;
+import com.example.bookstore.dao.repository.CategoryRepository;
 import com.example.bookstore.dto.book.BookDto;
 import com.example.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.example.bookstore.dto.book.BookSearchParametersDto;
@@ -11,6 +12,8 @@ import com.example.bookstore.mapper.BookMapper;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.service.BookService;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,11 +26,20 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final BookSpecificationBuilder bookSpecificationBuilder;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
         Book book = bookMapper.toBook(requestDto);
+        addCategory(book, requestDto.categoryIds());
         return bookMapper.toDto(bookRepository.save(book));
+    }
+
+    private void addCategory(Book book, Set<Long> categoryIds) {
+        book.setCategories(categoryIds.stream()
+                .map(categoryRepository::getReferenceById)
+                .collect(Collectors.toSet())
+        );
     }
 
     @Override
