@@ -44,7 +44,7 @@ public class BookController {
         return bookService.findById(id);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create a new book", description = "Add a new book to DB")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Update a book", description = "update information about a book by id")
+    @Operation(summary = "Update a book", description = "Update information about a book by id")
     @PutMapping("/{id}")
     public BookDto updateById(@PathVariable Long id,
                               @Valid @RequestBody CreateBookRequestDto requestDto) {
