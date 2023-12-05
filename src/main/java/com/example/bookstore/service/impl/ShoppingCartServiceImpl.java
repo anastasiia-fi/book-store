@@ -76,7 +76,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return cartItem;
     }
 
-    private User getUser(Authentication authentication) {
+    public User getUser(Authentication authentication) {
         String email = authentication.getName();
         return userRepository.findByEmail(email).orElseThrow(
                 () -> new EntityNotFoundException("No user with email " + email));

@@ -1,0 +1,14 @@
+version: "8.0.33"
+
+db:
+  image: mysql
+  restart: always
+  ports:
+    "8081:8086"
+  env_file: ./.env
+  environment:
+    MYSQLDB_USER: $MYSQLDB_USER
+    MYSQLDB_PASSWORD: $MYSQLDB_PASSWORD
+    MYSQLDB_DATABASE: $MYSQLDB_DATABASE
+  healthcheck:
+    test: [""]
