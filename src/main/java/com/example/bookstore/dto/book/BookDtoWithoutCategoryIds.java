@@ -1,8 +1,8 @@
-package com.example.bookstore.dto;
+package com.example.bookstore.dto.book;
 
 import java.math.BigDecimal;
 
-public record BookDto(
+public record BookDtoWithoutCategoryIds(
         Long id,
         String title,
         String author,
