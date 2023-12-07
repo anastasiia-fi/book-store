@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-
     private final CartItemRepository cartItemRepository;
     private final ShoppingCartRepository shoppingCartRepository;
     private final BookRepository bookRepository;
@@ -34,7 +33,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public CartItemDto save(Authentication authentication, CartItemRequestDto cartItemRequestDto) {
         ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUser(
-                getUser(authentication));
+                getPrincipal(authentication));
 
         CartItem cartItem = cartItemRepository
                 .findCartItemByShoppingCartAndBook_Id(shoppingCart, cartItemRequestDto.bookId())
@@ -48,7 +47,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCartDto getCart(Authentication authentication, Pageable pageable) {
         return shoppingCartMapper.toDto(shoppingCartRepository.findShoppingCartByUser(
-                getUser(authentication)));
+                getPrincipal(authentication)));
 
     }
 
@@ -76,7 +75,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return cartItem;
     }
 
-    private User getUser(Authentication authentication) {
+    private User getPrincipal(Authentication authentication) {
         String email = authentication.getName();
         return userRepository.findByEmail(email).orElseThrow(
                 () -> new EntityNotFoundException("No user with email " + email));
