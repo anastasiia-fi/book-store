@@ -42,7 +42,7 @@ public class ShoppingCartController {
     @Operation(summary = "Add a book to shopping cart", description = "Add a book to shopping cart")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public CartItemDto save(Authentication authentication,
+    public CartItemDto addCartItem(Authentication authentication,
                             @Valid @RequestBody CartItemRequestDto cartItemRequestDto) {
         return shoppingCartService.save(authentication, cartItemRequestDto);
     }

@@ -13,6 +13,7 @@ import com.example.bookstore.model.OrderItem;
 import com.example.bookstore.model.ShoppingCart;
 import com.example.bookstore.model.User;
 import com.example.bookstore.service.OrderService;
+import com.example.bookstore.service.ShoppingCartService;
 import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -30,12 +31,12 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemMapper orderItemMapper;
     private final OrderMapper orderMapper;
     private final OrderRepository orderRepository;
-    private final ShoppingCartServiceImpl shoppingCartService;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     @Transactional
     public OrderResponseDto create(OrderRequestDto orderRequestDto, Authentication authentication) {
-        User user = shoppingCartService.getUser(authentication);
+        User user = shoppingCartService.getPrincipal(authentication);
 
         Order order = new Order();
         order.setUser(user);

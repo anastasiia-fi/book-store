@@ -11,6 +11,7 @@ import com.example.bookstore.exception.RegistrationException;
 import com.example.bookstore.mapper.UserMapper;
 import com.example.bookstore.model.Role;
 import com.example.bookstore.model.User;
+import com.example.bookstore.service.ShoppingCartService;
 import com.example.bookstore.service.UserService;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final RoleRepository roleRepository;
-    private final ShoppingCartServiceImpl shoppingCartService;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto request)
