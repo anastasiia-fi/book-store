@@ -9,15 +9,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 
 public interface ShoppingCartService {
-    public CartItemDto save(Authentication authentication, CartItemRequestDto cartItemRequestDto);
+    CartItemDto save(Authentication authentication, CartItemRequestDto cartItemRequestDto);
 
-    public ShoppingCartDto getCart(Authentication authentication, Pageable pageable);
+    ShoppingCartDto getCart(Authentication authentication, Pageable pageable);
 
-    public CartItemDto updateItem(Long id, CartItemUpdateDto cartItemUpdateDto);
+    CartItemDto updateItem(Long id, CartItemUpdateDto cartItemUpdateDto);
 
     void deleteById(Long id);
 
     void registerShoppingCart(User user);
 
-    public User getPrincipal(Authentication authentication);
+    User getPrincipal(Authentication authentication);
 }

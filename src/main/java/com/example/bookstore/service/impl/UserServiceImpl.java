@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserResponseDto(savedUser);
     }
 
+    @Override
     public UpdateRoleResponseDto addRole(Long userId, UpdateRoleDto updateRoleDto) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException("No user with id " + userId));

@@ -46,21 +46,13 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal(BigDecimal.ZERO);
         orderRepository.save(order);
 
-        ShoppingCart shoppingCart = user.getShoppingCart();
-        Set<OrderItem> orderItems = shoppingCart.getCartItems().stream()
-                .map(orderItemMapper::toOrderItem)
-                .collect(Collectors.toSet());
-
-        orderItems.forEach(item -> item.setOrder(order));
-
-        order.setOrderItems(orderItems);
+        setOrderItems(user, order);
 
         BigDecimal totalPriceForItem = order.getOrderItems().stream()
                 .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         order.setTotal(totalPriceForItem);
-        shoppingCart.getCartItems().clear();
         return orderMapper.toDto(orderRepository.save(order));
     }
 
@@ -79,4 +71,16 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(orderUpdateDto.status());
         return orderMapper.toDto(order);
     }
+
+    private void setOrderItems(User user, Order order) {
+        ShoppingCart shoppingCart = user.getShoppingCart();
+        Set<OrderItem> orderItems = shoppingCart.getCartItems().stream()
+                .map(orderItemMapper::toOrderItem)
+                .collect(Collectors.toSet());
+
+        orderItems.forEach(item -> item.setOrder(order));
+        order.setOrderItems(orderItems);
+        shoppingCart.getCartItems().clear();
+    }
+
 }

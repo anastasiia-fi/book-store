@@ -17,8 +17,8 @@ public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemMapper orderItemMapper;
 
     @Override
-    public List<OrderItemResponseDto> getAllOrderItems(Long id, Pageable pageable) {
-        return orderItemRepository.findOrderItemsByOrder_Id(id).stream()
+    public List<OrderItemResponseDto> getAllOrderItems(Long cardId, Pageable pageable) {
+        return orderItemRepository.findOrderItemsByOrder_Id(cardId).stream()
                 .map(orderItemMapper::toDto)
                 .toList();
     }
