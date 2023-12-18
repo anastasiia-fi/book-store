@@ -37,22 +37,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderResponseDto create(OrderRequestDto orderRequestDto, Authentication authentication) {
         User user = shoppingCartService.getPrincipal(authentication);
-
-        Order order = new Order();
-        order.setUser(user);
-        order.setStatus(Order.Status.PENDING);
-        order.setOrderDate(LocalDateTime.now());
-        order.setShippingAddress(orderRequestDto.shippingAddress());
-        order.setTotal(BigDecimal.ZERO);
-        orderRepository.save(order);
-
+        Order order = createOrder(user, orderRequestDto);
         setOrderItems(user, order);
-
-        BigDecimal totalPriceForItem = order.getOrderItems().stream()
-                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        order.setTotal(totalPriceForItem);
+        setTotalPrice(order);
         return orderMapper.toDto(orderRepository.save(order));
     }
 
@@ -72,6 +59,17 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toDto(order);
     }
 
+    private Order createOrder(User user, OrderRequestDto orderRequestDto) {
+        Order order = new Order();
+        order.setUser(user);
+        order.setStatus(Order.Status.PENDING);
+        order.setOrderDate(LocalDateTime.now());
+        order.setShippingAddress(orderRequestDto.shippingAddress());
+        order.setTotal(BigDecimal.ZERO);
+        orderRepository.save(order);
+        return order;
+    }
+
     private void setOrderItems(User user, Order order) {
         ShoppingCart shoppingCart = user.getShoppingCart();
         Set<OrderItem> orderItems = shoppingCart.getCartItems().stream()
@@ -83,4 +81,11 @@ public class OrderServiceImpl implements OrderService {
         shoppingCart.getCartItems().clear();
     }
 
+    private void setTotalPrice(Order order) {
+        BigDecimal totalPriceForItem = order.getOrderItems().stream()
+                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        order.setTotal(totalPriceForItem);
+    }
 }

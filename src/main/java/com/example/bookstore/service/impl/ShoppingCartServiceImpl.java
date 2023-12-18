@@ -26,9 +26,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final CartItemRepository cartItemRepository;
     private final ShoppingCartRepository shoppingCartRepository;
     private final BookRepository bookRepository;
-    private final UserRepository userRepository;
     private final CartItemMapper cartItemMapper;
     private final ShoppingCartMapper shoppingCartMapper;
+    private final UserRepository userRepository;
 
     @Override
     public CartItemDto save(Authentication authentication, CartItemRequestDto cartItemRequestDto) {
@@ -75,15 +75,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return cartItem;
     }
 
-    public User getPrincipal(Authentication authentication) {
-        String email = authentication.getName();
-        return userRepository.findByEmail(email).orElseThrow(
-                () -> new EntityNotFoundException("No user with email " + email));
-    }
-
     public void registerShoppingCart(User user) {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
         shoppingCartRepository.save(shoppingCart);
+    }
+
+    public User getPrincipal(Authentication authentication) {
+        String email = authentication.getName();
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new EntityNotFoundException("No user with email " + email));
     }
 }
