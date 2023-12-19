@@ -1,5 +1,7 @@
 package com.example.bookstore.controller;
 
+import com.example.bookstore.dto.user.UpdateRoleDto;
+import com.example.bookstore.dto.user.UpdateRoleResponseDto;
 import com.example.bookstore.dto.user.UserLoginRequestDto;
 import com.example.bookstore.dto.user.UserLoginResponseDto;
 import com.example.bookstore.dto.user.UserRegistrationRequestDto;
@@ -11,6 +13,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +39,13 @@ public class AuthController {
     @PostMapping("/login")
     public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto request) {
         return authenticationService.authenticate(request);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Updating role", description = "Add a new role for user")
+    @PostMapping("/{userId}")
+    public UpdateRoleResponseDto addRole(
+            @PathVariable Long userId, @RequestBody @Valid UpdateRoleDto updateRoleDto) {
+        return userService.addRole(userId, updateRoleDto);
     }
 }
