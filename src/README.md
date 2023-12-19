@@ -57,7 +57,7 @@ password: `example1234`
 #### Book management:  
 * create new book  
 * update existing one  
-* delete book  
+* delete books  
 
 #### Category management:  
 * create new category  
