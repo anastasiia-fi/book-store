@@ -3,7 +3,8 @@
 Online Book Store is an application that provides functionality for management book sales 
 and purchases. As a customer you can register and log in, search for books by id, categories
 and specific filters, add some to your shopping cart and place an order. As an admin you can
-add/update/delete new books, manage statuses of orders, add a role for users.  
+add/update/delete new books, manage statuses of orders, add a role for users. Beside convenient functionality
+app provided security for all users, by authentication and authorization with JWT token. 
 
 <a name="navigation"></a>
 ## Navigation   
