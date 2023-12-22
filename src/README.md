@@ -14,6 +14,7 @@ app provided security for all users, by authentication and authorization with JW
 * [Entities](#endpoints-)   
 * [Endpoints](#endpoints-)  
 * [Class diagram](#class-diagram)
+* [Try it yourself]()
 
 <a name="features"></a>  
 ## Features:   
@@ -147,3 +148,17 @@ PATCH: /api/orders/{id} - update a status of an order `admin only`
 ![img_2.png](img_2.png)
 
 [back to navigation](#navigation-) 
+
+<a name="try-it-yourself"></a>
+
+## Try it yourself  
+
+How to launch project on Docker:
+
+1. Install [Docker](https://www.docker.com/products/docker-desktop/)   
+2. Clone repository from [GitHub](https://github.com/anastasiia-fi/book-store)  
+3. Add your properties to .env file (`.env.sample` as an example)
+4. Run `mvn clean package`  
+5. Open docker app    
+6. Run `docker-compose build` , and then `docker-compose up`    
+7. 
