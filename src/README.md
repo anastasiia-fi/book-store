@@ -13,7 +13,7 @@ add/update/delete new books, manage statuses of orders, add a role for users.
 * [Entities](#endpoints-)   
 * [Endpoints](#endpoints-)  
 * [Class diagram](#class-diagram)
-* [Try it yourself]()
+* [Try it yourself](#try-it-yourself-)
 
 <a name="features"></a>  
 ## Features:   
