@@ -23,8 +23,6 @@ public interface BookMapper {
 
     Book toBook(CreateBookRequestDto requestDto);
 
-    Book toEntity(CreateBookRequestDto bookDto);
-
     BookDtoWithoutCategoryIds toDtoWithoutCategories(Book book);
 
     @AfterMapping

@@ -18,4 +18,6 @@ public interface ShoppingCartService {
     void deleteById(Long id);
 
     void registerShoppingCart(User user);
+
+    User getPrincipal(Authentication authentication);
 }
