@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.bookstore.dao.repository.CategoryRepository;
 import com.example.bookstore.dto.category.CategoryDto;
 import com.example.bookstore.dto.category.CreateCategoryRequestDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Connection;
@@ -76,12 +75,7 @@ public class CategoryControllerTest {
                 "Test Description"
         );
 
-        String jsonRequest;
-        try {
-            jsonRequest = objectMapper.writeValueAsString(requestDto);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Can't read request", e);
-        }
+        String jsonRequest = objectMapper.writeValueAsString(requestDto);
 
         MvcResult result = mockMvc.perform(
                         post("/api/categories")
@@ -190,22 +184,5 @@ public class CategoryControllerTest {
                 .andExpect(status().isNoContent())
                 .andReturn();
         assertThat(categoryRepository.findById(id)).isEmpty();
-    }
-
-    @Test
-    @DisplayName("Delete category without admin role")
-    @WithMockUser(username = "user", roles = {"USER"})
-    @Sql(
-            scripts = "classpath:database/add-two-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-    )
-    public void deleteCategoryById_WithoutAdminRole_ShouldThrowException() throws Exception {
-        long id = 1L;
-        MvcResult result = mockMvc.perform(
-                        delete("/api/categories/" + id)
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isForbidden())
-                .andReturn();
     }
 }

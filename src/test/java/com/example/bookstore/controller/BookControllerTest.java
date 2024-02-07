@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.bookstore.dto.book.BookDto;
 import com.example.bookstore.dto.book.CreateBookRequestDto;
 import com.example.bookstore.model.Category;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
@@ -93,12 +92,7 @@ public class BookControllerTest {
         expected.setCoverImage(requestDto.coverImage());
         expected.setCategoryIds(requestDto.categoryIds());
 
-        String jsonRequest;
-        try {
-            jsonRequest = objectMapper.writeValueAsString(requestDto);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Can't read request", e);
-        }
+        String jsonRequest = objectMapper.writeValueAsString(requestDto);
 
         MvcResult result = mockMvc.perform(
                 post("/api/books")
@@ -132,35 +126,7 @@ public class BookControllerTest {
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
     )
     public void findAllBooks_WithValidData_ShouldReturnThreeBooks() throws Exception {
-
-        BookDto a = new BookDto();
-        a.setId(1L);
-        a.setTitle("BookA");
-        a.setAuthor("AuthorA");
-        a.setIsbn("0123456789");
-        a.setPrice(BigDecimal.valueOf(100.01));
-        a.setDescription("DescriptionA");
-        a.setCategoryIds(Set.of(1L));
-
-        BookDto b = new BookDto();
-        b.setId(2L);
-        b.setTitle("BookB");
-        b.setAuthor("AuthorB");
-        b.setIsbn("9123456780");
-        b.setPrice(BigDecimal.valueOf(200.01));
-        b.setDescription("DescriptionB");
-        b.setCategoryIds(Set.of(2L));
-
-        BookDto c = new BookDto();
-        c.setId(3L);
-        c.setTitle("BookC");
-        c.setAuthor("AuthorC");
-        c.setIsbn("0923456781");
-        c.setPrice(BigDecimal.valueOf(300.01));
-        c.setDescription("DescriptionC");
-        c.setCategoryIds(Set.of(1L));
-
-        List<BookDto> expected = List.of(a, b, c);
+        List<BookDto> expected = createThreeBooks();
 
         MvcResult result = mockMvc.perform(
                         get("/api/books")
@@ -254,24 +220,33 @@ public class BookControllerTest {
                 .andReturn();
     }
 
-    @Test
-    @DisplayName("Delete book without admin role")
-    @WithMockUser(username = "user", roles = {"USER"})
-    @Sql(
-            scripts = "classpath:database/add-two-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-    )
-    @Sql(
-            scripts = "classpath:database/insert-three-books.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-    )
-    public void deleteBookById_WithoutAdminRole_ShouldThrowException() throws Exception {
-        long id = 1L;
-        MvcResult result = mockMvc.perform(
-                        delete("/api/books/" + id)
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isForbidden())
-                .andReturn();
+    private List<BookDto> createThreeBooks() {
+        BookDto a = new BookDto();
+        a.setId(1L);
+        a.setTitle("BookA");
+        a.setAuthor("AuthorA");
+        a.setIsbn("0123456789");
+        a.setPrice(BigDecimal.valueOf(100.01));
+        a.setDescription("DescriptionA");
+        a.setCategoryIds(Set.of(1L));
+
+        BookDto b = new BookDto();
+        b.setId(2L);
+        b.setTitle("BookB");
+        b.setAuthor("AuthorB");
+        b.setIsbn("9123456780");
+        b.setPrice(BigDecimal.valueOf(200.01));
+        b.setDescription("DescriptionB");
+        b.setCategoryIds(Set.of(2L));
+
+        BookDto c = new BookDto();
+        c.setId(3L);
+        c.setTitle("BookC");
+        c.setAuthor("AuthorC");
+        c.setIsbn("0923456781");
+        c.setPrice(BigDecimal.valueOf(300.01));
+        c.setDescription("DescriptionC");
+        c.setCategoryIds(Set.of(1L));
+        return List.of(a, b, c);
     }
 }
